@@ -1,18 +1,35 @@
 {
     "name": "literate-reader",
-    "displayName": "literate-reader",
-    "description": "",
+    "displayName": "Literate Reader",
+    "description": "View your code comments in a literate format, allowing for ease of reading",
     "version": "0.0.1",
     "publisher": "sartaj",
+    "license": "MIT",
     "engines": {
         "vscode": "^1.23.0"
     },
     "categories": [
         "Other"
     ],
+    "keywords": ["literate", "javascript", "markdown"],
+    "homepage": "https://github.com/sartaj/literate-reader",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sartaj/literate-reader.git"
+    },
     "activationEvents": [
         "onCommand:extension.literateReader"
     ],
+    "bugs": {
+        "url": "https://github.com/sartaj/literate-reader/issues"
+    },
+    "galleryBanner": {
+        "color": "#c61452",
+        "theme": "dark"
+    },
+    "badges": [
+    ],
+    "icon": "media/logo-128.png",
     "main": "./extension",
     "contributes": {
         "commands": [
@@ -38,6 +55,7 @@
         "@types/node": "^7.0.43",
         "eslint": "^4.11.0",
         "typescript": "^2.6.1",
+        "vsce": "^1.42.0",
         "vscode": "^1.1.6"
     },
     "dependencies": {
