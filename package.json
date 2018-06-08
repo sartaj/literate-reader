@@ -1,10 +1,10 @@
 {
     "name": "literate-reader",
     "displayName": "Literate Reader",
-    "description": "View your code comments in a literate format, allowing for ease of reading",
-    "version": "0.0.1",
+    "description": "View your code comments in a literate format, allowing for ease of reading.",
     "publisher": "sartaj",
     "license": "MIT",
+    "version": "0.1.2",
     "engines": {
         "vscode": "^1.23.0"
     },
