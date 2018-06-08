@@ -1,0 +1,50 @@
+{
+    "name": "literate-reader",
+    "displayName": "literate-reader",
+    "description": "",
+    "version": "0.0.1",
+    "publisher": "sartaj",
+    "engines": {
+        "vscode": "^1.23.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.literateReader"
+    ],
+    "main": "./extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.literateReader",
+                "title": "Read in Literate Mode"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.literateReader",
+                "key": "shift+ctrl+l",
+                "mac": "shift+cmd+l"
+            }
+        ]
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.43",
+        "eslint": "^4.11.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
+    },
+    "dependencies": {
+        "highlight.js": "^9.3.0",
+        "markdown-it": "^6.0.1",
+        "markdown-it-named-headers": "0.0.4",
+        "split": "^1.0.1",
+        "through2": "^2.0.3"
+    }
+}
