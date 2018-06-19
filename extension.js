@@ -71,6 +71,9 @@ class TextDocumentContentProvider {
         </head>
         <body>
           ${mdHtml}
+          <script>
+            window.scrollTo(0, 0);
+          </script>
         </body>
       </html>
     `)
@@ -132,7 +135,7 @@ function openPreview(uri, sideBySide) {
 
   console.log("__URI__", uri, activeEditor.document);
 
-  if (!activeEditor) {
+  if (!activeEditor && !uri) {
 		vscode.commands.executeCommand('workbench.action.navigateBack');
 		return;
 	}
@@ -143,7 +146,7 @@ function openPreview(uri, sideBySide) {
     .executeCommand('vscode.previewHtml',
       markdownPreviewUri,
       getViewColumn(sideBySide),
-      `Literate Reading '${path.basename(activeEditor.document.fileName)}'`
+      `Literate Reading '${path.basename(markdownPreviewUri.fsPath)}'`
     )
     .catch(reason => {
       vscode.window.showErrorMessage(reason);
@@ -152,7 +155,6 @@ function openPreview(uri, sideBySide) {
 
 function getDocUri(document) {
   const uri = document.uri.with({ scheme: 'literate-reader', query: document.uri.toString() });
-  console.log("uri", uri)
   return uri
 }
 
