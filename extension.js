@@ -28,7 +28,8 @@ class TextDocumentContentProvider {
   }
 
   linkGenerationFunction(link) {
-    return `command:extension.literateReader?${JSON.stringify([link])}`
+    const lin = encodeURI(`command:extension.literateReader?${JSON.stringify([link])}`)
+    return lin
   }
 
   fixHref(resource, href) {
@@ -77,6 +78,8 @@ class TextDocumentContentProvider {
         </body>
       </html>
     `)
+    .then(mdHtml => { console.log(mdHtml); return mdHtml; })
+
   }
 
   errorSnippet(error) {
@@ -136,9 +139,14 @@ function openPreview(uri, sideBySide) {
   console.log("__URI__", uri, activeEditor.document);
 
   if (!activeEditor && !uri) {
-		vscode.commands.executeCommand('workbench.action.navigateBack');
+		// vscode.commands.executeCommand('workbench.action.navigateBack');
 		return;
-	}
+  }
+  
+  if(uri) {
+    console.log('URI FOUND', uri)
+    return
+  }
 
   let markdownPreviewUri = getDocUri(activeEditor.document);
 
