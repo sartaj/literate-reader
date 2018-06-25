@@ -7,28 +7,24 @@ const { createLiterateReaderHTML } = require('./lib/literate-reader-viewer')
 
 class TextDocumentContentProvider {
   constructor(context){
-    this._onDidChange = new vscode.EventEmitter();
+    this.onDidChangeEmitter = new vscode.EventEmitter();
     this._context = context;
-    this._waiting = false;
-    this.onDidChange = {
-      get: () => this._onDidChange.event,
-      enumerable: true,
-      configurable: true
-    };
-    this.createMdHtml = this.createMdHtml.bind(this);
-  }
-
-  provideTextDocumentContent(uri) {
-    return vscode.workspace.openTextDocument(vscode.Uri.parse(uri.query))
-      .then(this.createMdHtml)
+    this.activeUri = null;
+    this.changeUri = this.changeUri.bind(this);
+    this.update = this.update.bind(this);
+    this.provideTextDocumentContent = this.provideTextDocumentContent.bind(this);
   }
 
   getMediaPath (mediaFile) {
     return this._context.asAbsolutePath(path.join('media', mediaFile));
   }
+  
+  get onDidChange() {
+    return this.onDidChangeEmitter.event;
+  }
 
   linkGenerationFunction(link) {
-    const lin = encodeURI(`command:extension.literateReader?${JSON.stringify([link])}`)
+    const lin = encodeURI(`command:extension.literateReader?${JSON.stringify(vscode.Uri.parse(`file://${link}`))}`)
     return lin
   }
 
@@ -54,13 +50,9 @@ class TextDocumentContentProvider {
       : []
   }
 
-  createMdHtml(document) {
-    if (!(document.languageId === 'javascript')) {
-      return this.errorSnippet(`Only JS files are currently supported. Current file is ${document.languageId}`);
-    }
-    const { fileName, uri } = document;
-
-    return createLiterateReaderHTML(fileName, this.linkGenerationFunction)
+  provideTextDocumentContent() {
+    const uri = this.activeUri;
+    return createLiterateReaderHTML(uri.fsPath, this.linkGenerationFunction)
       .then(mdHtml => `
       <!DOCTYPE html>
       <html>
@@ -78,7 +70,7 @@ class TextDocumentContentProvider {
         </body>
       </html>
     `)
-    .then(mdHtml => { console.log(mdHtml); return mdHtml; })
+    // .then(mdHtml => { console.log(mdHtml); return mdHtml; })
 
   }
 
@@ -86,14 +78,13 @@ class TextDocumentContentProvider {
     return "\n\t\t\t\t<body>\n\t\t\t\t\t" + error + "\n\t\t\t\t</body>";
   }
 
-  update(uri) {
-    if (!this._waiting) {
-			this._waiting = true;
-			setTimeout(() => {
-				this._waiting = false;
-				this._onDidChange.fire(uri);
-			}, 300);
-    }
+  changeUri(uri) {
+    if(uri) this.activeUri = uri;
+    this.update();
+  }
+
+  update() {
+    this.onDidChangeEmitter.fire('literate-reader://read');
   }
 
 }
@@ -112,59 +103,37 @@ const activate = context => {
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with  registerCommand
   // The commandId parameter must match the command field in package.json
-  const disposable = vscode.commands.registerCommand('extension.literateReader', (uri) => openPreview(uri, false) )
-
+  const disposable = vscode.commands.registerCommand('extension.literateReader', openPreview)
   context.subscriptions.push(disposable, registration);
 
-	vscode.workspace.onDidSaveTextDocument(document => {
-    const uri = getDocUri(document);
-    provider.update(uri);
+  vscode.workspace.onDidSaveTextDocument(() => {
+    provider.update();
 	});
 
-	vscode.workspace.onDidChangeTextDocument(event => {
-			const uri = getDocUri(event.document);
-			provider.update(uri);
+	vscode.workspace.onDidChangeTextDocument(() => {
+    provider.update();
 	});
 
 	vscode.workspace.onDidChangeConfiguration(() => {
-		vscode.workspace.textDocuments.forEach((document) => {
-      provider.update(document.uri);
+		vscode.workspace.textDocuments.forEach(() => {
+      provider.update();
 		});
   });
+
+  function openPreview(uri) {
+    provider.changeUri(uri || vscode.window.activeTextEditor.document.uri)
+    return vscode.commands
+      .executeCommand('vscode.previewHtml',
+        'literate-reader://read',
+        getViewColumn(false),
+        `Literate Reader'`
+      )
+      .catch(reason => {
+        vscode.window.showErrorMessage(reason);
+      });
+  }
+
 };
-
-function openPreview(uri, sideBySide) {
-	const activeEditor = vscode.window.activeTextEditor;
-
-  console.log("__URI__", uri, activeEditor.document);
-
-  if (!activeEditor && !uri) {
-		// vscode.commands.executeCommand('workbench.action.navigateBack');
-		return;
-  }
-  
-  if(uri) {
-    console.log('URI FOUND', uri)
-    return
-  }
-
-  let markdownPreviewUri = getDocUri(activeEditor.document);
-
-  vscode.commands
-    .executeCommand('vscode.previewHtml',
-      markdownPreviewUri,
-      getViewColumn(sideBySide),
-      `Literate Reading '${path.basename(markdownPreviewUri.fsPath)}'`
-    )
-    .catch(reason => {
-      vscode.window.showErrorMessage(reason);
-    });
-}
-
-function getDocUri(document) {
-  const uri = document.uri.with({ scheme: 'literate-reader', query: document.uri.toString() });
-  return uri
-}
 
 function getViewColumn(sideBySide) {
 	const active = vscode.window.activeTextEditor;

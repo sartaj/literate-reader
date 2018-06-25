@@ -47,7 +47,15 @@
                 "key": "shift+ctrl+l",
                 "mac": "shift+cmd+l"
             }
-        ]
+        ],
+        "menus": {
+			"editor/title": [
+				{
+					"command": "extension.literateReader",
+					"when": "resourceLangId == js || resourcesLangId == ts"
+				}
+			]
+        }
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install",

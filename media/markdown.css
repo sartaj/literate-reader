@@ -134,25 +134,6 @@ code > div {
 	background-color: transparent;
 }
 
-.literate-reader-docs-container {
-	padding: 1% 2%;
-	margin: 0 auto;
-	max-width: 85%;
-	box-shadow: 0 0 2px 1px rgba(0,0,0,0.3)
-}
-
-.vscode-light .literate-reader-docs-container {
-	background: rgba(255,255,255,0.5);
-}
-
-.vscode-high-contrast .literate-reader-docs-container {
-	background: rgba(0,0,0,1);
-}
-
-.vscode-dark .literate-reader-docs-container {
-	background: rgba(10, 10, 10, 0.4);
-}
-
 .vscode-high-contrast h1 {
 	border-color: rgb(0, 0, 0);
 }
@@ -186,4 +167,23 @@ code > div {
 .vscode-high-contrast blockquote {
 	background: transparent;
 	border-color: #fff;
+}
+
+.literate-reader-docs-container {
+	padding: 1% 2%;
+	margin: 0 auto;
+	max-width: 85%;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+}
+
+.vscode-light .literate-reader-docs-container {
+	background: rgba(255,255,255,0.5);
+}
+
+.vscode-high-contrast .literate-reader-docs-container {
+	background: rgba(0,0,0,1);
+}
+
+.vscode-dark .literate-reader-docs-container {
+	background: rgba(10, 10, 10, 0.4);
 }
