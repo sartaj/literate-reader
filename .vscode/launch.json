@@ -12,7 +12,7 @@
             "runtimeExecutable": "${execPath}",
             "protocol": "legacy",
             "args": [
-                "--extensionDevelopmentPath=${workspaceFolder}"
+                "--extensionDevelopmentPath=${workspaceFolder}/packages/literate-reader-vscode"
             ]
         },
         {

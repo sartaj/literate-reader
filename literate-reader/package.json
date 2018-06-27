@@ -1,0 +1,35 @@
+{
+    "name": "literate-reader",
+    "displayName": "Literate Reader",
+    "description": "View your JS code comments in a literate format, allowing for ease of reading.",
+    "publisher": "sartaj",
+    "license": "MIT",
+    "version": "1.0.1",
+    "keywords": [
+        "literate",
+        "javascript",
+        "typescript",
+        "markdown"
+    ],
+    "homepage": "https://github.com/sartaj/literate-reader",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sartaj/literate-reader.git"
+    },
+    "bugs": {
+        "url": "https://github.com/sartaj/literate-reader/issues"
+    },
+    "scripts": {},
+    "devDependencies": {},
+    "dependencies": {
+        "split-html": "1.0.2",
+        "highlight.js": "9.3.0",
+        "markdown-it": "6.0.1",
+        "markdown-it-named-headers": "0.0.4",
+        "pkg-dir": "3.0.0",
+        "require-resolve": "0.0.2",
+        "resolve-from": "4.0.0",
+        "split": "1.0.1",
+        "through2": "2.0.3"
+    }
+}

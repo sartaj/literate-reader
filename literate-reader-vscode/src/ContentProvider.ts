@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
-const { createLiterateReaderHTML } = require('../lib/literate-reader-viewer')
+import { createLiterateReaderHTML } from 'literate-reader';
 
 export class LiterateReaderContentProvider
   implements vscode.TextDocumentContentProvider {

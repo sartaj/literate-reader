@@ -1,10 +1,10 @@
 {
-    "name": "literate-reader",
+    "name": "literate-reader-vscode",
     "displayName": "Literate Reader",
     "description": "View your JS code comments in a literate format, allowing for ease of reading.",
     "publisher": "sartaj",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "engines": {
         "vscode": "^1.23.0"
     },
@@ -67,20 +67,12 @@
     },
     "devDependencies": {
         "eslint": "^4.11.0",
-        "split-html": "^1.0.2",
         "vsce": "^1.42.0",
         "typescript": "^2.6.2",
         "@types/mocha": "^2.2.42"
     },
     "dependencies": {
-        "highlight.js": "^9.3.0",
-        "markdown-it": "^6.0.1",
-        "markdown-it-named-headers": "0.0.4",
-        "pkg-dir": "^3.0.0",
-        "require-resolve": "0.0.2",
-        "resolve-from": "^4.0.0",
-        "split": "^1.0.1",
-        "through2": "^2.0.3",
+        "literate-reader": "1.0.0",
         "vscode": "^1.1.6"
     }
 }
