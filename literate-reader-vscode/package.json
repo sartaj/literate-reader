@@ -4,7 +4,7 @@
     "description": "View your JS code comments in a literate format, allowing for ease of reading.",
     "publisher": "sartaj",
     "license": "MIT",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "engines": {
         "vscode": "^1.23.0"
     },
