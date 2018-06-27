@@ -48,7 +48,7 @@ export class LiterateReaderContentProvider
 
   provideTextDocumentContent(): Thenable<string> {
     const uri = this.activeUri;
-    return createLiterateReaderHTML(uri.fsPath, this.linkGenerationFunction)
+    const html = createLiterateReaderHTML(uri.fsPath, this.linkGenerationFunction)
       .then(mdHtml => `
       <!DOCTYPE html>
       <html>
@@ -66,6 +66,7 @@ export class LiterateReaderContentProvider
         </body>
       </html>
     `)
+    return html;
     // .then(mdHtml => { console.log(mdHtml); return mdHtml; })
 
   }

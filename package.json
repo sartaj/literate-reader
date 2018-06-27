@@ -4,7 +4,7 @@
     "description": "View your JS code comments in a literate format, allowing for ease of reading.",
     "publisher": "sartaj",
     "license": "MIT",
-    "version": "0.2.0",
+    "version": "1.0.0",
     "engines": {
         "vscode": "^1.23.0"
     },
@@ -14,6 +14,7 @@
     "keywords": [
         "literate",
         "javascript",
+        "typescript",
         "markdown"
     ],
     "homepage": "https://github.com/sartaj/literate-reader",
@@ -49,12 +50,12 @@
             }
         ],
         "menus": {
-			"editor/title": [
-				{
-					"command": "extension.literateReader",
-					"when": "resourceLangId == js || resourcesLangId == ts"
-				}
-			]
+            "editor/title": [
+                {
+                    "command": "extension.literateReader",
+                    "when": "resourceLangId == js || resourcesLangId == ts"
+                }
+            ]
         }
     },
     "scripts": {
@@ -75,6 +76,7 @@
         "highlight.js": "^9.3.0",
         "markdown-it": "^6.0.1",
         "markdown-it-named-headers": "0.0.4",
+        "pkg-dir": "^3.0.0",
         "require-resolve": "0.0.2",
         "resolve-from": "^4.0.0",
         "split": "^1.0.1",
