@@ -9,6 +9,7 @@ export class LiterateReaderContentProvider
   private onDidChangeEmitter = new vscode.EventEmitter<vscode.Uri>();
   private _context : any;
   private activeUri: any;
+  private UriHistory: string[];
 
   constructor(context) {
     this.onDidChangeEmitter = new vscode.EventEmitter();
@@ -59,6 +60,11 @@ export class LiterateReaderContentProvider
           ${this.computeCustomStyleSheetIncludes(uri)}
         </head>
         <body>
+          <nav class="literate-reader-nav">
+            <ul>
+              <li>←/li>
+            </ul>
+          </nav>
           ${mdHtml}
           <script>
             window.scrollTo(0, 0);
@@ -76,7 +82,10 @@ export class LiterateReaderContentProvider
   }
 
   changeUri(uri) {
-    if(uri) this.activeUri = uri;
+    if(uri) {
+      this.activeUri = uri
+      this.UriHistory.push(uri);
+    };
     this.update();
   }
 
