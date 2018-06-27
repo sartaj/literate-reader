@@ -67,12 +67,12 @@
     },
     "devDependencies": {
         "eslint": "^4.11.0",
-        "vsce": "^1.42.0",
+        "vsce": "^1.43.0",
         "typescript": "^2.6.2",
         "@types/mocha": "^2.2.42"
     },
     "dependencies": {
-        "literate-reader": "1.0.0",
+        "literate-reader": "1.0.1",
         "vscode": "^1.1.6"
     }
 }
