@@ -5,8 +5,8 @@ const mdToHtml = require('./lib/md-to-html')
 
 const createLiterateReaderHTML = async (file, linkGeneratorFunction) => {
   try {
-    const ext = path.extname(file).slice(1)
-    switch(ext) {
+    const fileExtension = path.extname(file).slice(1)
+    switch(fileExtension) {
       case 'js':
       case 'jsx':
       case 'ts':
@@ -20,7 +20,7 @@ const createLiterateReaderHTML = async (file, linkGeneratorFunction) => {
         return mdToHtml.render(contents)
       default:
         const codeContents = fs.readFileSync(file, { encoding: 'utf-8' })
-        return mdToHtml.render(`\`\`\`${ext}\n${codeContents}\n\`\`\`\n`)
+        return mdToHtml.render(`\`\`\`${fileExtension}\n${codeContents}\n\`\`\`\n`)
     }
   } catch(e) {
     console.error(e)

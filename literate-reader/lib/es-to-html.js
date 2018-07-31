@@ -93,7 +93,7 @@ const wrapDocsInContainerDiv = htmlString =>
 
 const esToLiterateHtml = (file, linkGeneratorFunction) => {
   return new Promise(resolve => {
-    const doc = esToMd.doc(file)
+    const doc = esToMd.fromFile(file)
       .pipe(new InjectImports())
       .pipe(new InjectContainerDivsIntoCode());
 

@@ -254,7 +254,7 @@ function transformFunction (chunk, enc, cb) {
 		this.push('```\n')
 	}
 
-	// +RB: Are we currently in a doc block? (inversed order)
+	// +RB: Are we currently in a fromFile block? (inversed order)
 	if (this.isDoc) {
 		// We're in a comment (= documentation). We remove the
 		// comment prefix and trailing whitespace (typically `// `).
@@ -305,10 +305,10 @@ function flushFunction (cb) {
 // constructor for our custom Transform that operates on a line-by-line basis.
 const Transform = through2.ctor(transformFunction, flushFunction)
 
-// ## `doc`
-// `doc` accepts a filename, creates a corresponding read stream, processes the
+// ## `fromFile`
+// `fromFile` accepts a filename, creates a corresponding read stream, processes the
 // file and writes the resulting `.md` file to disk.
-const doc = file =>
+const fromFile = file =>
 	fs.createReadStream(file)
 		// [`split`](https://www.npmjs.com/package/split) is a transform that
 		// generates chunks separated by new-line.
@@ -327,19 +327,12 @@ const doc = file =>
 			file
 		}))
 
-// ## `handleClose`
-// We print a message whenever we generated a `.md` file.
-const handleClose = cwd => function handler () {
-	const toPath = path.relative(cwd, this.path)
-	console.log('wrote', this.bytesWritten, 'bytes to', toPath) // eslint-disable-line no-console
-}
-
 // ## `run`
 // This is the main function of `jdi`. It accepts an array of `args` and
 // generates corresponding `.md` files.
 // **Warning:** `run` has persistent side-effects (it overrides files). If you
-// just want to create streams of documented source files, use `doc()` instead.
-const run = (cwd, args) =>
+// just want to create streams of documented source files, use `fromFile()` instead.
+const cli = (cwd, args) =>
 	args
 		// Files that should be documented are being passed in via `args`, e.g.
 		// if the user invokes `jdi index.js test.js`, `args` will be an array
@@ -347,15 +340,18 @@ const run = (cwd, args) =>
 		.map(file => path.join(cwd, file))
 		// Now we have an array of filenames to be processed.
 		// We map over those files and create a corresponding stream.
-		.map(doc)
+		.map(fromFile)
 		// Create a corresponding [`WriteStream`](https://nodejs.org/api/fs.html#fs_class_fs_writestream).
 		.map(out => out.pipe(fs.createWriteStream(`${out.options.file}.md`)))
 		// .pipe(fs.createWriteStream(`${file}.md`))
 		// Now we attach the `close` listener.
-		.forEach(stream => stream.on('close', handleClose(cwd)))
+		.forEach(stream => stream.on('close', () => {
+			const toPath = path.relative(cwd, this.path)
+			console.log('wrote', this.bytesWritten, 'bytes to', toPath) // eslint-disable-line no-console
+		}))
 
 // ## `exports`
 // Public APIs:
-exports.run = run
-exports.doc = doc
+exports.cli = cli
+exports.fromFile = fromFile
 exports.Transform = Transform
