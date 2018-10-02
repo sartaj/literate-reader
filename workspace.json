@@ -1,0 +1,6 @@
+{
+    "links": {
+      "literate-reader": "./literate-reader",
+      "literate-reader-vscode": "./literate-reader-vscode"
+    }
+  }

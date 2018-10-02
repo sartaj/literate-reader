@@ -74,6 +74,6 @@
     },
     "dependencies": {
         "literate-reader": "1.0.1",
-        "vscode": "^1.1.6"
+        "vscode": "^1.1.21"
     }
 }
