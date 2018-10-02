@@ -6,13 +6,24 @@
 	"version": "0.2.0",
     "configurations": [
         {
-            "name": "Extension",
+            "type": "node",
+            "request": "launch",
+            "name": "literate-reader",
+            "runtimeExecutable": "${workspaceFolder}/literate-reader/node_modules/.bin/nodemon",
+            "cwd": "${workspaceFolder}/literate-reader",
+            "program": "${workspaceFolder}/literate-reader/specifications/index.js",
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "literate-reader-vscode",
             "type": "extensionHost",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "protocol": "legacy",
             "args": [
-                "--extensionDevelopmentPath=${workspaceFolder}/packages/literate-reader-vscode"
+                "--extensionDevelopmentPath=${workspaceFolder}/literate-reader-vscode"
             ]
         },
         {

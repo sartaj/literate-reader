@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
-const esToHtml = require('./lib/es-to-html')
-const mdToHtml = require('./lib/md-to-html')
+const esToHtml = require('./library/es-to-html')
+const mdToHtml = require('./library/md-to-html')
 
 const createLiterateReaderHTML = async (file, linkGeneratorFunction) => {
   try {

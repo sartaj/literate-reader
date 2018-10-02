@@ -13,3 +13,22 @@ Currently, this extension only works with JavaScript.
 ## Features
 
 * Preview anything in markdown or GFM (tables, images, lists, etc)
+
+## Roadmap
+
+### Targets
+
+- ✅ vscode
+- ⏳ atom
+- ⏳ static html site
+- ⏳ md docs
+- ⏳ web extension (for github reading)
+
+### Features
+
+- ✅ Generate preview html from standard ES comments
+- ✅ ES import statement linking
+- ✅ ES require statement linking
+- ⏳ Native MD Support
+- ⏳ Navigation History
+- ⏳ Navigation tree for files (attempt using code editor tree view)
